@@ -19,7 +19,7 @@ class ApiController extends Controller
         return response()->json($users);
     }
 
-    public function login(Request $request){
+    public function login_sucessflly(Request $request){
         $responde=["status"=>"0","msg"=>""];
 
         $data=json_decode($request->getContent());
@@ -30,7 +30,7 @@ class ApiController extends Controller
             if(FacadesHash::check($data->password,$user->password)){
                 //Genera el token de acceso
                 //
-                $token = $user->createToken("example");//Crea nombre y permisos
+                $token = $user->createToken("example");//Define un nombre al token y sus permisos
                 $responde["status"]=1;
                 $responde["msg"]=$token->plainTextToken;
 

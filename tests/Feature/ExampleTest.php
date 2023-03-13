@@ -13,6 +13,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 class ExampleTest extends TestCase
 {
@@ -26,6 +27,7 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
 
     public function testUsersReturnsAllUsersByDefault()
     {
@@ -50,7 +52,8 @@ class ExampleTest extends TestCase
             'id'=> $user1->id,
             'name' => $user1->name,
             'email' => $user1->email
-        ]);
+        ]); //comprueba si una respuesta JSON contiene un fragmento de datos específico
+
         $response->assertJsonFragment([
             'id'=> $user2->id,
             'name' => $user2->name,
@@ -76,6 +79,7 @@ class ExampleTest extends TestCase
         $response->assertJsonFragment([
             'id' => $activeUser->id
         ]);
+        //comprueba si una respuesta JSON NO contiene un fragmento de datos específico
         $response->assertJsonMissing([
             'id' => $inactiveUser->id
         ]);
@@ -141,4 +145,7 @@ public function testInvalidLogin()
         'msg',
     ]);
 }
+
+
+    
 }
