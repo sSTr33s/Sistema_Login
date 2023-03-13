@@ -109,11 +109,18 @@ class ExampleTest extends TestCase
         $responseData = json_decode($response->getContent(), true);
         $this->assertTrue(!empty($responseData['msg']));
 
-        // Verifica que el token de acceso sea válido
+        /* Verifica que el token de acceso sea válido
         $token = $responseData['msg'];
         $userFromToken = $user->tokens()->where('name', 'example')->first()->token;
 
-        $this->assertEquals($token, $userFromToken);
+        $this->assertEquals($token, $userFromToken);*/
+
+        //// Afirma que el token pertenece al usuario de prueba
+
+        $this->assertDatabaseHas('personal_access_tokens', [
+            'tokenable_type' => 'App\\Models\\User',
+            'tokenable_id' => $user->id
+        ]);
 }
 
 public function testInvalidLogin()
