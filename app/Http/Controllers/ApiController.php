@@ -19,7 +19,7 @@ class ApiController extends Controller
         return response()->json($users);
     }
 
-    public function login_sucessflly(Request $request){
+    public function login(Request $request){
         $responde=["status"=>"0","msg"=>""];
 
         $data=json_decode($request->getContent());
